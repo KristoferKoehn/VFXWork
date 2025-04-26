@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6da21n8eq5xf"]
+
+[ext_resource type="Shader" path="res://Utility/test.gdshader" id="1_niwmg"]
+[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Assets/PNG (Transparent)/spark_07.png" id="2_bjc7m"]
+[ext_resource type="Shader" path="res://Utility/particle_zap.gdshader" id="3_snnk0"]
+[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Assets/PNG (Transparent)/spark_03.png" id="4_0s4lu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snnk0"]
+shader = ExtResource("1_niwmg")
+shader_parameter/lightning = ExtResource("2_bjc7m")
+shader_parameter/color = Color(3, 2, 2, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yegyw"]
+shader = ExtResource("3_snnk0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_snnk0"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.25
+scale_max = 0.25
+
+[node name="Test" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_snnk0")
+position = Vector2(231, 0)
+points = PackedVector2Array(-70, 140, 3, 170, 69, 158, 109, 134, 171, 161, 225, 90, 341, 157)
+width = 128.0
+texture_mode = 2
+joint_mode = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_yegyw")
+texture = ExtResource("4_0s4lu")
+process_material = SubResource("ParticleProcessMaterial_snnk0")
