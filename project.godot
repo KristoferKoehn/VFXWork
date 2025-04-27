@@ -17,3 +17,7 @@ config/icon="res://icon.svg"
 [dotnet]
 
 project/assembly_name="VFXWork"
+
+[rendering]
+
+viewport/hdr_2d=true

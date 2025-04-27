@@ -1,0 +1,86 @@
+[gd_scene load_steps=15 format=3 uid="uid://b6da21n8eq5xf"]
+
+[ext_resource type="Script" uid="uid://33ayl3vxqxop" path="res://eel_lightning/eel_lightning.gd" id="1_6qs0j"]
+[ext_resource type="Shader" uid="uid://usgbvehrmj6u" path="res://eel_lightning/line_lightning.gdshader" id="1_lk12s"]
+[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Assets/PNG (Transparent)/spark_07.png" id="2_6qs0j"]
+[ext_resource type="Shader" uid="uid://c3hdxe7kkpuiu" path="res://eel_lightning/particle_zap.gdshader" id="3_nqs6u"]
+[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Assets/PNG (Transparent)/spark_03.png" id="4_7c327"]
+[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Assets/PNG (Transparent)/spark_02.png" id="5_u1fp1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snnk0"]
+shader = ExtResource("1_lk12s")
+shader_parameter/lightning = ExtResource("2_6qs0j")
+shader_parameter/color = Color(6, 4, 4, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yegyw"]
+shader = ExtResource("3_nqs6u")
+
+[sub_resource type="Curve" id="Curve_snnk0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0514706, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.110294, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.227941, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_0s4lu"]
+curve = SubResource("Curve_snnk0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_snnk0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 100.0
+angle_min = -180.0
+angle_max = 180.0
+radial_velocity_min = 40.0
+radial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.25
+color = Color(2, 2, 1.5, 1)
+alpha_curve = SubResource("CurveTexture_0s4lu")
+
+[sub_resource type="Curve" id="Curve_yegyw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0514706, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.110294, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.227941, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_xoy82"]
+curve = SubResource("Curve_yegyw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k6g66"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 200.0
+angle_min = -180.0
+angle_max = 180.0
+radial_velocity_min = 40.0
+radial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.25
+color = Color(2, 2, 1.5, 1)
+alpha_curve = SubResource("CurveTexture_xoy82")
+
+[node name="eel_lightning" type="Node2D" node_paths=PackedStringArray("line", "front_particle", "back_particle")]
+script = ExtResource("1_6qs0j")
+line = NodePath("Line2D")
+front_particle = NodePath("GPUParticles2D")
+back_particle = NodePath("GPUParticles2D2")
+
+[node name="Line2D" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_snnk0")
+points = PackedVector2Array(-256, -248, -168, -206, -205, -80, -8, -134, -3, -29, 108, -59, 156, 44, 261, 8, 298, 123, 389, 133)
+width = 128.0
+texture_mode = 2
+joint_mode = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_yegyw")
+position = Vector2(-168, -206)
+amount = 10
+texture = ExtResource("4_7c327")
+process_material = SubResource("ParticleProcessMaterial_snnk0")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_yegyw")
+position = Vector2(108, -59)
+amount = 6
+texture = ExtResource("5_u1fp1")
+explosiveness = 0.77
+process_material = SubResource("ParticleProcessMaterial_k6g66")
