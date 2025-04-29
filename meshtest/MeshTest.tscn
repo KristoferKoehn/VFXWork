@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://crnbsuu3yqq72"]
+
+[ext_resource type="Script" uid="uid://213h1124orln" path="res://meshtest/mesh_test.gd" id="1_wf63x"]
+[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Assets/PNG (Transparent)/spark_07.png" id="2_vr7ga"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wf63x"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_vr7ga"]
+sky_material = SubResource("ProceduralSkyMaterial_wf63x")
+
+[sub_resource type="Environment" id="Environment_tb7kj"]
+background_mode = 2
+sky = SubResource("Sky_vr7ga")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_wf63x"]
+
+[sub_resource type="Shader" id="Shader_wf63x"]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled;
+varying vec3 n;
+
+uniform sampler2D tex;
+uniform vec4 c : source_color;
+
+void vertex() {
+	n = NORMAL;
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec4 t = texture(tex, vec2(UV.y + TIME * 2.0, UV.x/2.0 + 0.25));
+	ALBEDO = vec3(UV,0.0);//t.rgb * c.rgb;
+	//ALPHA = t.w * clamp(UV.y * UV.y, 0.0, 1.0);
+	//ALPHA = clamp(t.w - UV.y, 0.0, 1.0);
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vr7ga"]
+render_priority = 0
+shader = SubResource("Shader_wf63x")
+shader_parameter/tex = ExtResource("2_vr7ga")
+shader_parameter/c = Color(3.315, 2.209, 18.785, 1)
+
+[node name="MeshTest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tb7kj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2683, 6.48037, 2.28654)
+mesh = SubResource("SphereMesh_wf63x")
+
+[node name="Node3D" type="Node3D" parent="MeshInstance3D"]
+script = ExtResource("1_wf63x")
+trail_length = 10
+trail_width = 1.0
+Trail_Material = SubResource("ShaderMaterial_vr7ga")
+fps = 60.0

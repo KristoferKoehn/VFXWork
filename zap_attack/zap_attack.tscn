@@ -151,14 +151,14 @@ impact_particles = NodePath("impact_particles")
 top_level = true
 z_index = -1
 material = SubResource("ShaderMaterial_fd35s")
-rotation = 0.783705
-points = PackedVector2Array(15.7549, 12.7228, 23.0838, -39.67, 71.2342, -8.90237, 151.396, -12.7622, 193.103, 24.5919, 267.06, -34.1711, 312.954, 33.2078, 347.746, -20.5507, 373.701, 15.0797, 443.529, -16.8267, 486.023, 10.9623, 538.425, -5.34239, 584.066, 28.1151, 626.506, -22.384, 699.158, 8.41053, 758.021, -16.9803, 782.534, 24.4684, 859.469, -28.9114, 899.176, -1.06309, 922.773, -29.9603, 1004.36, 8.30131, 1069.59, -29.9825, 1117.86, 0.541801, 1134.94, -14.4141, 1202.05, 19.9126, 1226.15, -3.2015, 1317.19, 11.4384, 1322.42, -38.2021, 1417.18, 28.4457, 1460.3, -34.7244, 1484.7, 9.46332, 1521.15, -2.31147, 1618.98, 9.5921, 1647.43, -19.9231)
+rotation = 0.742126
+points = PackedVector2Array(-22.9678, 15.1194, 42.9905, -23.6506, 89.1715, -6.19976, 122.971, -15.4861, 216.735, 26.6604, 250.384, -7.48388, 291.396, 1.12859, 331.481, -16.3067, 376.642, 9.85128, 445.15, -31.8672, 515.416, 2.08821, 549.065, 3.92644, 589.133, 13.4299, 666.545, -34.4493, 714.326, 28.3559, 768.731, -31.1304, 783.762, 8.1002, 837.964, -42.1541, 875.087, 18.353, 941.58, -6.56425, 1013.4, 17.3536, 1043.18, -12.0336, 1090.23, 9.28533, 1168.52, 1.50751, 1209.71, 12.3879, 1248.39, -28.1248, 1311.07, 3.75528, 1353.71, -33.0976, 1389.18, 8.87258, 1440.18, -37.2048, 1479.8, 15.5158, 1539.34, 3.15123, 1580.11, 13.1584, 1634.16, -41.3198, 1696.05, 10.5252, 1728.23, -28.6006)
 width = 84.0
 texture_mode = 2
 
 [node name="creep_lightning" type="Node2D" parent="."]
 top_level = true
-position = Vector2(1183, 1179)
+position = Vector2(1265, 1160)
 
 [node name="small_zappies" type="GPUParticles2D" parent="creep_lightning"]
 emitting = false
@@ -180,13 +180,13 @@ visibility_rect = Rect2(-639.146, -625.434, 1260.83, 1264.49)
 process_material = SubResource("ParticleProcessMaterial_68sq4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1183, 1179)
+position = Vector2(1265, 1160)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_adxr2")
 
 [node name="line_particles1" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_adxr2")
-position = Vector2(198.224, 244.438)
+position = Vector2(270.94, 261.817)
 emitting = false
 amount = 10
 texture = ExtResource("5_8v5rb")
@@ -196,7 +196,7 @@ process_material = SubResource("ParticleProcessMaterial_afiy8")
 
 [node name="line_particles2" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_adxr2")
-position = Vector2(814.057, 790.954)
+position = Vector2(963.765, 888.864)
 emitting = false
 amount = 6
 texture = ExtResource("4_68sq4")
@@ -207,8 +207,8 @@ process_material = SubResource("ParticleProcessMaterial_nl2lh")
 
 [node name="impact_particles" type="GPUParticles2D" parent="."]
 modulate = Color(4, 4, 2, 1)
-position = Vector2(1183, 1179)
-rotation = -2.35789
+position = Vector2(1265, 1160)
+rotation = -2.39947
 emitting = false
 amount = 5
 texture = ExtResource("8_adxr2")

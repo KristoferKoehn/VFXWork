@@ -72,14 +72,14 @@ joint_mode = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_yegyw")
-position = Vector2(-168, -206)
+position = Vector2(108, -59)
 amount = 10
 texture = ExtResource("4_7c327")
 process_material = SubResource("ParticleProcessMaterial_snnk0")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_yegyw")
-position = Vector2(108, -59)
+position = Vector2(-256, -248)
 amount = 6
 texture = ExtResource("5_u1fp1")
 explosiveness = 0.77
