@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://bjhn17ghynpgx"]
+
+[ext_resource type="Script" uid="uid://b4ohs6pomfhpg" path="res://ElectricalOrb/electrical_orb.gd" id="1_f2twm"]
+[ext_resource type="Script" uid="uid://bkjb3lch5uikf" path="res://UtilityClasses/Line3D.gd" id="2_ue31j"]
+[ext_resource type="Shader" uid="uid://cd7g66awqhpsg" path="res://ElectricalOrb/Lightning.gdshader" id="3_nln3m"]
+[ext_resource type="Texture2D" uid="uid://csmrg53qv2fy8" path="res://Assets/PNG (Transparent)/spark_06.png" id="4_ydut8"]
+[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Assets/PNG (Transparent)/spark_02.png" id="5_h5ddq"]
+[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Assets/PNG (Transparent)/circle_05.png" id="6_y8uy2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ydut8"]
+render_priority = 0
+shader = ExtResource("3_nln3m")
+shader_parameter/tex = ExtResource("4_ydut8")
+shader_parameter/c = Color(5, 5, 3, 1)
+shader_parameter/alpha = 0.0
+
+[sub_resource type="Curve" id="Curve_h5ddq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0711974, 0), 0.0, 0.0, 0, 0, Vector2(0.304207, 1), 0.0, 0.0, 0, 0, Vector2(0.566343, 0.00718021), 0.0, 0.0, 0, 0, Vector2(0.763754, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="CurveTexture" id="CurveTexture_y8uy2"]
+curve = SubResource("Curve_h5ddq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h5ddq"]
+emission_shape = 1
+emission_sphere_radius = 3.0
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color = Color(5, 5, 2, 1)
+alpha_curve = SubResource("CurveTexture_y8uy2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8uy2"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_h5ddq")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_vq0d2"]
+material = SubResource("StandardMaterial3D_y8uy2")
+
+[sub_resource type="Curve" id="Curve_y8uy2"]
+_data = [Vector2(0.504854, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vq0d2"]
+curve = SubResource("Curve_y8uy2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y8uy2"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+spread = 40.0
+initial_velocity_min = 15.0
+initial_velocity_max = 20.0
+alpha_curve = SubResource("CurveTexture_vq0d2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5ddq"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(2, 1, 4, 1)
+albedo_texture = ExtResource("6_y8uy2")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_y8uy2"]
+material = SubResource("StandardMaterial3D_h5ddq")
+
+[node name="ElectricalOrb" type="Node3D" node_paths=PackedStringArray("line", "target", "sparks", "zap_cloud")]
+script = ExtResource("1_f2twm")
+line = NodePath("Line3D")
+target = NodePath("Target")
+sparks = NodePath("sparks")
+zap_cloud = NodePath("Zapcloud")
+
+[node name="Line3D" type="Node3D" parent="."]
+transform = Transform3D(-0.130702, -0.99142, 0.00153083, 0, 0.00154407, 0.999999, -0.991421, 0.130702, -0.000201813, 0, 0, 0)
+script = ExtResource("2_ue31j")
+points = Array[Vector3]([Vector3(0.75087, 0.107777, 0), Vector3(-5.75659, -1.5946, -5), Vector3(4.05368, 2.77367, -10), Vector3(3.43268, -3.21828, -15), Vector3(-3.58764, 1.49768, -20), Vector3(-1.51198, 1.31017, -25), Vector3(3.01403, -0.549407, -30), Vector3(-1.21226, 1.60986, -35), Vector3(2.36288, -1.27908, -40), Vector3(-4.48351, 2.22076, -45), Vector3(-0.27504, -3.77058, -50), Vector3(0.847015, 4.98131, -55), Vector3(3.89728, -4.33167, -60), Vector3(1.25489, -0.0277654, -65), Vector3(4.18575, 4.40648, -70), Vector3(-0.397629, 4.90263, -75), Vector3(2.09982, 4.89146, -80), Vector3(3.94298, -4.82559, -85), Vector3(5.17245, -3.24079, -90), Vector3(-3.04742, 3.92991, -95), Vector3(0.0246922, -5.81231, -100), Vector3(3.26803, -2.7425, -105), Vector3(4.4984, -3.34348, -110), Vector3(-0.451908, -3.5455, -115), Vector3(-1.8158, 4.46242, -120), Vector3(5.88307, -3.75571, -125), Vector3(3.87031, -2.40176, -130), Vector3(5.53691, 5.34987, -135), Vector3(2.9424, -1.20679, -140), Vector3(-2.65687, 4.95357, -145), Vector3(4.19749, -5.36882, -150), Vector3(3.6566, 2.27412, -155), Vector3(-5.97364, 2.83996, -160), Vector3(0.461225, -3.21047, -165), Vector3(5.20502, 4.50644, -170), Vector3(-2.72314, -3.04958, -175), Vector3(-1.32478, 1.75919, -180), Vector3(-3.48883, 3.23965, -185), Vector3(-2.87478, -2.93758, -190), Vector3(-1.12693, 3.63552, -195), Vector3(0, 0, -200)])
+width = 1.0
+material = SubResource("ShaderMaterial_ydut8")
+metadata/_custom_type_script = "uid://bkjb3lch5uikf"
+
+[node name="Target" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.311, -200, 0.041)
+gizmo_extents = 5.0
+
+[node name="Zapcloud" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.311, -200, 0.041)
+emitting = false
+amount = 32
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_h5ddq")
+draw_pass_1 = SubResource("QuadMesh_vq0d2")
+
+[node name="sparks" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.130702, -0.991417, -0.00153083, 0, 0.00154407, -0.999998, 0.991421, 0.130701, 0.000201813, -0.311, -200, 0.041)
+emitting = false
+amount = 20
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_y8uy2")
+draw_pass_1 = SubResource("QuadMesh_y8uy2")
+
+[node name="dirt" type="GPUParticles3D" parent="."]
