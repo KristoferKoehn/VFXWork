@@ -3,16 +3,16 @@ render_mode cull_disabled, unshaded;
 
 uniform sampler2D tex;
 uniform vec3 c : source_color;
+uniform float time_scale : hint_range(0.0, 20.0, 0.1) = 0.5;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
 void fragment() {
-	ALBEDO = texture(tex, vec2(UV.x/6.0 + 5.0/12.0, UV.y - TIME*0.5)).rgb * c;
-	//ALBEDO = vec3(UV, 0.0);
-	ALPHA = clamp(texture(tex, vec2(UV.x/6.0 + 5.0/12.0, UV.y - TIME*0.5)).w * UV.y,0.0, 1.0);
-	//ALPHA = texture(tex, vec2(UV.x/4.0 + 3.0/8.0, UV.y + TIME)).w;
+	//ALBEDO = vec3(UV, 0);
+	ALBEDO = texture(tex, vec2(UV.x/3.0 + 2.0/6.0, UV.y - TIME*time_scale)).rgb * c;
+	ALPHA = clamp(texture(tex, vec2(UV.x/3.0 + 2.0/6.0, UV.y - TIME*time_scale)).w , 0.0, 1.0);
 	// Called for every pixel the material is visible on.
 }
 

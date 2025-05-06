@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://crnbsuu3yqq72"]
+[gd_scene load_steps=10 format=4 uid="uid://crnbsuu3yqq72"]
 
-[ext_resource type="Script" uid="uid://bouw6fkbiwcwr" path="res://UtilityClasses/trail3D.gd" id="1_3w0g7"]
-[ext_resource type="Script" uid="uid://bkjb3lch5uikf" path="res://UtilityClasses/Line3D.gd" id="3_tb7kj"]
+[ext_resource type="Texture2D" uid="uid://csmrg53qv2fy8" path="res://Assets/PNG (Transparent)/spark_06.png" id="2_tb7kj"]
+[ext_resource type="Script" uid="uid://duget263hx4xr" path="res://UtilityClasses/Line3D.gd" id="3_tb7kj"]
 [ext_resource type="Shader" uid="uid://n1ksih1ybyao" path="res://meshtest/line3d.gdshader" id="4_3w0g7"]
-[ext_resource type="Texture2D" uid="uid://csmrg53qv2fy8" path="res://Assets/PNG (Transparent)/spark_06.png" id="5_cfw0w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wf63x"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -18,19 +17,27 @@ sky = SubResource("Sky_vr7ga")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="SphereMesh" id="SphereMesh_wf63x"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cfw0w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vr7ga"]
 render_priority = 0
 shader = ExtResource("4_3w0g7")
-shader_parameter/tex = ExtResource("5_cfw0w")
-shader_parameter/c = Color(2, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3w0g7"]
-render_priority = 0
-shader = ExtResource("4_3w0g7")
-shader_parameter/tex = ExtResource("5_cfw0w")
+shader_parameter/tex = ExtResource("2_tb7kj")
 shader_parameter/c = Color(1, 2, 1, 1)
+shader_parameter/time_scale = 0.6
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tb7kj"]
+_surfaces = [{
+"aabb": AABB(-0.245811, -3.78537, -6.3966, 8.74162, 5.02452, 6.8879),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD+XOYNAAAAAAJc5g0AAAAAAAAAAAAAAgD8AAAAAAACAP4YxgD8AAAAAhjGAPwAAAAAAAAAAAACAPwAAAAAAAIA/PNcqQAAAAAA81ypAAAAAAAAAAAAAAIA/AAAAAAAAgD+apKVAAAAAAJqkpUAAAAAAAAAAAAAAgD8AAAAAAACAP5JHJEEAAAAAkkckQQ=="),
+"format": 34359742481,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("B1ITPo1DcsAVsvG+B1ITvuP5Z8AVsvE+v5XtP9jKNr0VsvE+IDUJQEpNUr4VsvG+moAAQPARib4/UfW+y/7+PwgfkTw/UfU+Zn8/QJnrlD0/UfU+moBAQPbRWb4/UfW+WyknQHpAaL73BIw+pdZYQKHIsT33BIy+U2uMQCLYGMD1BIy+WylnQG7qLMD1BIw+UrKBQJjCJ8CNi/u+XJt8QPj/HcCNi/s+1yYDQQX2+D6Ni/s+KdkEQQXhqj6Ni/u+KREAQZSJzj1l+pw+1+4HQVIaOD9l+py+27V7Poacnj/usMzA27V7vuvvHj+iEbnA")
+}]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tb7kj"]
 
 [node name="MeshTest" type="Node3D"]
 
@@ -41,17 +48,13 @@ environment = SubResource("Environment_tb7kj")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3957, 15.5315, -12.4533)
-mesh = SubResource("SphereMesh_wf63x")
-
-[node name="Node3D2" type="Node3D" parent="MeshInstance3D"]
-script = ExtResource("1_3w0g7")
-trail_length = 15
-trail_material = SubResource("ShaderMaterial_cfw0w")
-fps = 60.0
-
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.91752, -0.0152893, 0.0224285)
+[node name="Line3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_vr7ga")
+mesh = SubResource("ArrayMesh_tb7kj")
 script = ExtResource("3_tb7kj")
-material = SubResource("ShaderMaterial_3w0g7")
+points = Array[Vector3]([Vector3(0, -3.705, 0), Vector3(2, -0.125, 0), Vector3(3, -0.07, 0), Vector3(4, -2.545, 0), Vector3(8.25, 0.41, 0), Vector3(0, 0.93, -6.09)])
+metadata/_custom_type_script = "uid://duget263hx4xr"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.75239, 0.309805, 0)
+mesh = SubResource("BoxMesh_tb7kj")
