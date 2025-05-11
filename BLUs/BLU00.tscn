@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3 uid="uid://daorado1u3jlu"]
+
+[ext_resource type="Shader" uid="uid://ctoybn7gsgnwn" path="res://BLUs/BLU00.gdshader" id="1_wuief"]
+[ext_resource type="Shader" uid="uid://15ixj2k8yib7" path="res://BLUs/BLU01.gdshader" id="2_ydpwf"]
+[ext_resource type="Shader" uid="uid://do6ch55tve5r2" path="res://BLUs/BLU02.gdshader" id="3_vcnjj"]
+[ext_resource type="Shader" uid="uid://5e26fkc1s0xq" path="res://BLUs/BLU03.gdshader" id="4_7sjd4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w31bm"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ydpwf"]
+shader = ExtResource("1_wuief")
+shader_parameter/background = Color(2, 0, 0, 1)
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w31bm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcnjj"]
+shader = ExtResource("2_ydpwf")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wuief"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7sjd4"]
+shader = ExtResource("3_vcnjj")
+shader_parameter/mouse_position = Vector2(695.925, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ydpwf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kcxd"]
+shader = ExtResource("4_7sjd4")
+shader_parameter/mouse_position = Vector2(506.485, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vcnjj"]
+
+[node name="Blu00" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+double_sided = false
+texture = SubResource("ViewportTexture_w31bm")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1024, 512)
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+visible = false
+material = SubResource("ShaderMaterial_ydpwf")
+custom_minimum_size = Vector2(1024, 512)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("PlaceholderTexture2D_w31bm")
+
+[node name="TextureRect2" type="TextureRect" parent="SubViewport"]
+visible = false
+material = SubResource("ShaderMaterial_vcnjj")
+custom_minimum_size = Vector2(1024, 512)
+offset_right = 128.0
+offset_bottom = 128.0
+texture = SubResource("PlaceholderTexture2D_wuief")
+
+[node name="TextureRect3" type="TextureRect" parent="SubViewport"]
+visible = false
+material = SubResource("ShaderMaterial_7sjd4")
+custom_minimum_size = Vector2(1024, 512)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("PlaceholderTexture2D_ydpwf")
+
+[node name="TextureRect4" type="TextureRect" parent="SubViewport"]
+visible = false
+material = SubResource("ShaderMaterial_6kcxd")
+custom_minimum_size = Vector2(1024, 512)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("PlaceholderTexture2D_vcnjj")

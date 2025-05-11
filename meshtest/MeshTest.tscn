@@ -26,7 +26,7 @@ shader_parameter/time_scale = 0.6
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tb7kj"]
 _surfaces = [{
-"aabb": AABB(-0.245811, -3.78537, -6.3966, 8.74162, 5.02452, 6.8879),
+"aabb": AABB(-0.365344, -3.9091, -6.19924, 8.72594, 5.31432, 6.69049),
 "attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD+XOYNAAAAAAJc5g0AAAAAAAAAAAAAAgD8AAAAAAACAP4YxgD8AAAAAhjGAPwAAAAAAAAAAAACAPwAAAAAAAIA/PNcqQAAAAAA81ypAAAAAAAAAAAAAAIA/AAAAAAAAgD+apKVAAAAAAJqkpUAAAAAAAAAAAAAAgD8AAAAAAACAP5JHJEEAAAAAkkckQQ=="),
 "format": 34359742481,
 "index_count": 30,
@@ -34,7 +34,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 20,
-"vertex_data": PackedByteArray("B1ITPo1DcsAVsvG+B1ITvuP5Z8AVsvE+v5XtP9jKNr0VsvE+IDUJQEpNUr4VsvG+moAAQPARib4/UfW+y/7+PwgfkTw/UfU+Zn8/QJnrlD0/UfU+moBAQPbRWb4/UfW+WyknQHpAaL73BIw+pdZYQKHIsT33BIy+U2uMQCLYGMD1BIy+WylnQG7qLMD1BIw+UrKBQJjCJ8CNi/u+XJt8QPj/HcCNi/s+1yYDQQX2+D6Ni/s+KdkEQQXhqj6Ni/u+KREAQZSJzj1l+pw+1+4HQVIaOD9l+py+27V7Poacnj/usMzA27V7vuvvHj+iEbnA")
+"vertex_data": PackedByteArray("VQ67vrQOYMB7F4y+VQ67PrwuesB7F4w+ymEXQCSAqL5+F4w+azzRP44Aoj1+F4y+IKL+PzCWjT1A2uu+8K4AQIxlo75A2us+8K5AQJc8h75A2us+EFE/QAk6/j1A2uu+LgBcQE+r2j2/TSm+0v8jQNCxfL6/TSk+0v9jQIQxLsDCTSk+FwCOQAyRF8DCTSm+5Zh8QGz8HcABhfu+jrOBQCTGJ8ABhfs+x9kEQabEqj4Bhfs+OSYDQWQS+T4Bhfu+ADsCQRCShb3cu989AMUFQcedYj/cu9+9IoDiPUDesz83YMbAIoDive3Y6D5ZYr/A")
 }]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tb7kj"]

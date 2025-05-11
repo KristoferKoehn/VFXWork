@@ -10,9 +10,10 @@ void vertex() {
 }
 
 void fragment() {
-	//ALBEDO = vec3(UV, 0);
-	ALBEDO = texture(tex, vec2(UV.x/3.0 + 2.0/6.0, UV.y - TIME*time_scale)).rgb * c;
-	ALPHA = clamp(texture(tex, vec2(UV.x/3.0 + 2.0/6.0, UV.y - TIME*time_scale)).w , 0.0, 1.0);
+	ALBEDO = vec3(normalize(UV), 0);
+	ALPHA = 0.6;
+	//ALBEDO = texture(tex, vec2(UV.x/3.0 + 2.0/6.0, UV.y - TIME*time_scale)).rgb * c;
+	//ALPHA = clamp(texture(tex, vec2(UV.x/3.0 + 2.0/6.0, UV.y - TIME*time_scale)).w , 0.0, 1.0);
 	// Called for every pixel the material is visible on.
 }
 
