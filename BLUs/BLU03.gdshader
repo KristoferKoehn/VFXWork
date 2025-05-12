@@ -21,7 +21,6 @@ float pattern(vec2 st, vec2 v, float t) {
 void fragment() {
     vec2 st = FRAGCOORD.xy/(1.0/SCREEN_PIXEL_SIZE).xy;
     st.x *= ((1.0/SCREEN_PIXEL_SIZE).x * 2.0)/ ((1.0/SCREEN_PIXEL_SIZE).y * 1.0);
-
     vec2 grid = vec2(100.0,50.);
     st *= grid;
 

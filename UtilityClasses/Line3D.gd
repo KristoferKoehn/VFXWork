@@ -22,6 +22,7 @@ func _update_mesh():
 	else:
 		Camera = get_viewport().get_camera_3d()
 	
+	Camera.projection
 	var dir = Camera.global_position
 	
 	var vertices : PackedVector3Array
@@ -30,10 +31,9 @@ func _update_mesh():
 	
 	for i in range(0,points.size()-1):
 		var UV_y_cumulative : float = 0.0
-		var ray_0 = (points[i] - points[i+1]).normalized()
-		var ray_1 = (points[i] - points[i+1]).normalized()
-		var whisker_0 = (dir - points[i]).cross(ray_0).normalized() * line_width * 0.5
-		var whisker_1 = (dir - points[i + 1]).cross(ray_1).normalized() * line_width  * 0.5
+		var SegmentRay = (points[i] - points[i+1]).normalized()
+		var whisker_0 = (dir - points[i]).cross(SegmentRay).normalized() * line_width * 0.5
+		var whisker_1 = (dir - points[i]).cross(SegmentRay).normalized() * line_width  * 0.5
 		#print(whisker_0 + points[i], -whisker_0 + points[i])
 		UVs.append_array([ Vector2(0, UV_y_cumulative), Vector2(1, UV_y_cumulative),
 							Vector2(1,UV_y_cumulative + (points[i] - points[i + 1]).length()),
