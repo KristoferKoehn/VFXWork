@@ -1,5 +1,5 @@
 shader_type sky;
-render_mode use_half_res_pass;
+//render_mode use_half_res_pass;
 //render_mode use_quarter_res_pass;
 
 uniform int RaysPerPixel = 1;
@@ -9,6 +9,7 @@ uniform float FocusDistance;
 
 uniform sampler2D testImage;
 
+uniform vec2 imageoffset = vec2(0);
 struct Sphere {
 	vec3 position;
 	float radius;
@@ -137,21 +138,21 @@ float flerp(float st, float end, float t) {
 }
 
 vec3 GetEnvironmentLight(Ray ray, vec2 sky_c) {
-	Ray r = Ray(ray.origin + ray.dir * 500.0, -ray.dir);
+	Ray r = Ray(ray.origin + ray.dir * 600.0, -ray.dir);
 	Sphere s = Sphere(vec3(0), 400.0, vec3(0),0.0, vec3(0), 0.0, 0.0, 0.0);
 	HitInfo hi = SphereCheckCollision(r,s);
-	vec3 n = hi.normal;
-	vec2 uv;
-	uv.x = 0.5 + atan(n.z, n.x)/ (2.0 * PI);
-	uv.y = 0.5 + asin(n.y) / PI;
-	//return ray.dir;
-	
-	return texture(testImage,vec2(uv.x + TIME * 0.1, uv.y + TIME * 0.4 )).rgb * 0.5;
+		vec3 n = hi.normal;
+		vec2 uv;
+		uv.x = 0.5 + atan(n.z, n.x)/ (2.0 * PI);
+		uv.y = 0.5 + asin(n.y) / PI;
+	if (hi.hit) {
+		//return ray.dir;
+		return texture(testImage,uv + imageoffset + TIME * 0.04).rgb;
+	}
+
+	return vec3(n);
 }
 
-float map(float value, float min1, float max1, float min2, float max2) {
-  return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
-}
 
 vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres, vec2 sky_C) {
 	vec3 incomingLight = vec3(0,0,0);
@@ -167,14 +168,13 @@ vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres, vec2 sky_C) {
 			//ray.dir = normalize(hitInfo.normal + PerfectReflection + Diffuse); //
 			vec3 emittedLight = hitInfo.sphere.emissionColor;
 			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * float(isSpecularBounce) ) ;
-			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness)) ;
+			ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * 0.50 + 0.50) ;
 			//ray.dir = PerfectReflection;
-			float dimming = map(normalize(dot(PerfectReflection, Diffuse)), 1.0, -1.0, 0.8, 1.0);
-			incomingLight += emittedLight * rayColor;// * dimming;
+			incomingLight += emittedLight * rayColor;
 			
-			ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness));
+			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness));
 			//rayColor *= lerp(hitInfo.sphere.color, vec3(1,1,1), float(isSpecularBounce));
-			//rayColor *= hitInfo.sphere.color;
+			rayColor *= hitInfo.sphere.color;
 			//rayColor *= lerp(normalize(hitInfo.normal - POSITION - hitInfo.hitPoint), vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(texture(testImage, ((CameraPosition - hitInfo.hitPoint).xz + TIME + vec2(1,1))/2.0).xyz, vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(hitInfo.viewspaceNormal, vec3(1,1,1), float(isSpecularBounce));
