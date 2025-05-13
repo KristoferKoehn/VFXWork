@@ -1,5 +1,5 @@
 shader_type sky;
-render_mode use_quarter_res_pass;
+//render_mode use_half_res_pass;
 
 uniform bool environment = false;
 uniform vec3 GroundColor : source_color;
@@ -11,12 +11,6 @@ uniform float SunIntensity;
 
 uniform int RaysPerPixel = 1;
 uniform int MaxBounces = 2;
-uniform vec3 CameraPosition = vec3(0,0,0);
-uniform vec3 CameraRotation = vec3(0,0,0);
-uniform float NearPlane = 0.1;
-uniform float FarPlane = 8;
-uniform float FOV = 2;
-uniform float AspectRatio = 2;
 uniform float RayDivergeStrength;
 uniform float FocusDistance;
 
@@ -158,7 +152,7 @@ vec3 GetEnvironmentLight(Ray ray) {
 		return lerp(skyGradient,GroundColor,  groundToSkyT) + sun * sunMask;
 	}
 	//return ray.dir;
-	return vec3(0);
+	return vec3(0.01, 0.01, 0.01);
 }
 
 vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres) {
@@ -171,16 +165,23 @@ vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres) {
 			ray.origin = hitInfo.hitPoint;
 			vec3 Diffuse = (DiffuseReflected(hitInfo.normal));
 			vec3 PerfectReflection = GetReflected(ray.dir, hitInfo);
-			bool isSpecularBounce = hitInfo.sphere.specular >= mod(noise(vec2(14.23, seed)), 1.0);
+			//bool isSpecularBounce = hitInfo.sphere.specular >= mod(noise(vec2(14.23, seed)), 1.0);
 			//ray.dir = normalize(hitInfo.normal + PerfectReflection + Diffuse); //
 			vec3 emittedLight = hitInfo.sphere.emissionColor * hitInfo.sphere.emissionStrength;
-			ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * float(isSpecularBounce) ) ;
+			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * float(isSpecularBounce) ) ;
+			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness)) ;
+			ray.dir = PerfectReflection;
 			incomingLight += emittedLight * rayColor;
+			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * float(isSpecularBounce) ) ;
 			//rayColor *= lerp(hitInfo.sphere.color, vec3(1,1,1), float(isSpecularBounce));
-			rayColor *= lerp(normalize(hitInfo.normal - CameraPosition - hitInfo.hitPoint), vec3(1,1,1), float(isSpecularBounce));
+			rayColor *= hitInfo.sphere.color;
+			//rayColor *= lerp(normalize(hitInfo.normal - POSITION - hitInfo.hitPoint), vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(texture(testImage, ((CameraPosition - hitInfo.hitPoint).xz + TIME + vec2(1,1))/2.0).xyz, vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(hitInfo.viewspaceNormal, vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(hitInfo.normal, vec3(1,1,1), float(isSpecularBounce));
+		} else if (i == 0 ){
+			incomingLight += vec3(0);
+			break;
 		} else {
 			incomingLight += GetEnvironmentLight(ray) * rayColor;
 			break;
@@ -204,7 +205,7 @@ vec2 RandomPointInCircle(float seed) {
 }
 
 void sky() {
-	if (AT_QUARTER_RES_PASS) {
+	if (!AT_HALF_RES_PASS) {
 		COLOR = vec3(0,0,0);
 		Sphere spheres[Objects];
 		for (int i = 0; i < Objects; i++) {
@@ -219,13 +220,8 @@ void sky() {
 
 		Ray r;
 		for(int b = 0; b < RaysPerPixel; b++) {
-
 			//State = clamp(fract(State), 0, TIME/ 30.0);
 			float Seed = fract(noise(EYEDIR.xy) * 1.0 - TIME * 0.00432122);
-			/*
-			messing with projection matrix to get field of view working. It's not working.
-			*/
-
 			vec3 RayOrigin = POSITION;
 			vec3 target = EYEDIR;
 
@@ -239,7 +235,6 @@ void sky() {
 		COLOR = COLOR * divisor;
 	}
 	else {
-		//do nothing
-		COLOR = QUARTER_RES_COLOR.rgb;
+		COLOR = HALF_RES_COLOR.rgb;
 	}
 }
