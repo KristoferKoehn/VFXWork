@@ -1,13 +1,6 @@
 shader_type sky;
-//render_mode use_half_res_pass;
-
-uniform bool environment = false;
-uniform vec3 GroundColor : source_color;
-uniform vec3 SkyColorHorizon : source_color;
-uniform vec3 SkyColorZenith : source_color;
-uniform vec3 SunLightDirection;
-uniform float SunFocus;
-uniform float SunIntensity;
+render_mode use_half_res_pass;
+//render_mode use_quarter_res_pass;
 
 uniform int RaysPerPixel = 1;
 uniform int MaxBounces = 2;
@@ -96,7 +89,7 @@ HitInfo CalculateCollision(Ray ray, Sphere[Objects] spheres) {
 }
 
 float noise(vec2 uv) {
-	return fract(sin(dot(uv * TIME, vec2(12.25, 10.356))* 23.12 * fract(.99393)) * 5054.53);
+	return fract(sin(dot(uv, vec2(12.25, 10.356))* 23.12 * fract(.99393)) * 5054.53);
 	//return fract(sin(dot(uv, vec2(12.25, 10.356 + mod(TIME * 14.23, 1.0)))* 23.12) * 5054.53);
 }
 
@@ -108,7 +101,7 @@ float RandomNormalDistribution(inout float prev) {
 }
 
 vec3 RandomDirection(float rng) {
-	float seed = 14.23;
+	float seed = fract(rng);
 	float x = RandomNormalDistribution(seed);
 	seed = seed * 2.303;
 	float y = RandomNormalDistribution(seed);
@@ -126,8 +119,10 @@ vec3 GetReflected(vec3 incoming, HitInfo hitInfo) {
 	return outgoing;
 }
 
-vec3 DiffuseReflected(vec3 incoming) {
-	vec3 direction = RandomDirection(14.23 + TIME);
+//this is insane. Change this to ensure the ray cannot dive into the sphere or 
+//bounce back at the camera.
+vec3 DiffuseReflected(vec3 incoming, HitInfo h) {
+	vec3 direction = RandomDirection(incoming.x * 0.01 + incoming.y * 0.1 + incoming.z);
 	return direction * sign(dot(normalize(incoming), direction));
 }
 
@@ -141,21 +136,24 @@ float flerp(float st, float end, float t) {
 	return (st * (1.0-t) + end * t);
 }
 
-vec3 GetEnvironmentLight(Ray ray) {
-	if (environment) {
-		float skyGradientT = pow(smoothstep(0, 0.4, ray.dir.y), 0.35);
-		vec3 skyGradient = lerp(SkyColorHorizon, SkyColorZenith, skyGradientT);
-		float sun = pow(max(0, dot(ray.dir, -SunLightDirection)), SunFocus) * SunIntensity;
-
-		float groundToSkyT = smoothstep(-0.6, 0.01, ray.dir.y);
-		float sunMask = groundToSkyT >= 1.0 ? 1.0 : 0.0;
-		return lerp(skyGradient,GroundColor,  groundToSkyT) + sun * sunMask;
-	}
+vec3 GetEnvironmentLight(Ray ray, vec2 sky_c) {
+	Ray r = Ray(ray.origin + ray.dir * 500.0, -ray.dir);
+	Sphere s = Sphere(vec3(0), 400.0, vec3(0),0.0, vec3(0), 0.0, 0.0, 0.0);
+	HitInfo hi = SphereCheckCollision(r,s);
+	vec3 n = hi.normal;
+	vec2 uv;
+	uv.x = 0.5 + atan(n.z, n.x)/ (2.0 * PI);
+	uv.y = 0.5 + asin(n.y) / PI;
 	//return ray.dir;
-	return vec3(0.01, 0.01, 0.01);
+	
+	return texture(testImage,vec2(uv.x + TIME * 0.1, uv.y + TIME * 0.4 )).rgb * 0.5;
 }
 
-vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres) {
+float map(float value, float min1, float max1, float min2, float max2) {
+  return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+}
+
+vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres, vec2 sky_C) {
 	vec3 incomingLight = vec3(0,0,0);
 	vec3 rayColor = vec3(1,1,1);
 
@@ -163,40 +161,36 @@ vec3 Trace(Ray ray, inout float seed, Sphere[Objects] spheres) {
 		HitInfo hitInfo = CalculateCollision(ray, spheres);
 		if(hitInfo.hit) {
 			ray.origin = hitInfo.hitPoint;
-			vec3 Diffuse = (DiffuseReflected(hitInfo.normal));
+			vec3 Diffuse = DiffuseReflected(ray.dir * seed, hitInfo);
 			vec3 PerfectReflection = GetReflected(ray.dir, hitInfo);
 			//bool isSpecularBounce = hitInfo.sphere.specular >= mod(noise(vec2(14.23, seed)), 1.0);
 			//ray.dir = normalize(hitInfo.normal + PerfectReflection + Diffuse); //
-			vec3 emittedLight = hitInfo.sphere.emissionColor * hitInfo.sphere.emissionStrength;
+			vec3 emittedLight = hitInfo.sphere.emissionColor;
 			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * float(isSpecularBounce) ) ;
 			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness)) ;
-			ray.dir = PerfectReflection;
-			incomingLight += emittedLight * rayColor;
-			//ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness) * float(isSpecularBounce) ) ;
+			//ray.dir = PerfectReflection;
+			float dimming = map(normalize(dot(PerfectReflection, Diffuse)), 1.0, -1.0, 0.8, 1.0);
+			incomingLight += emittedLight * rayColor;// * dimming;
+			
+			ray.dir = lerp(Diffuse, PerfectReflection, (1.0 - hitInfo.sphere.roughness));
 			//rayColor *= lerp(hitInfo.sphere.color, vec3(1,1,1), float(isSpecularBounce));
-			rayColor *= hitInfo.sphere.color;
+			//rayColor *= hitInfo.sphere.color;
 			//rayColor *= lerp(normalize(hitInfo.normal - POSITION - hitInfo.hitPoint), vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(texture(testImage, ((CameraPosition - hitInfo.hitPoint).xz + TIME + vec2(1,1))/2.0).xyz, vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(hitInfo.viewspaceNormal, vec3(1,1,1), float(isSpecularBounce));
 			//rayColor *= lerp(hitInfo.normal, vec3(1,1,1), float(isSpecularBounce));
+			/*
 		} else if (i == 0 ){
 			incomingLight += vec3(0);
-			break;
+			break;*/
 		} else {
-			incomingLight += GetEnvironmentLight(ray) * rayColor;
+			incomingLight += GetEnvironmentLight(ray, sky_C) * rayColor;
 			break;
 		}
 	}
 
 	return incomingLight;
 }
-
-vec2 GetNDC(vec2 uv) {
-	float x_ndc = 2.0 * uv.x - 1.0;
-	float y_ndc = 1.0 - 2.0 * uv.y;
-	return vec2(x_ndc, y_ndc);
-}
-
 
 vec2 RandomPointInCircle(float seed) {
 	float angle = RandomNormalDistribution(seed);
@@ -205,6 +199,7 @@ vec2 RandomPointInCircle(float seed) {
 }
 
 void sky() {
+	//if (AT_QUARTER_RES_PASS) {
 	if (!AT_HALF_RES_PASS) {
 		COLOR = vec3(0,0,0);
 		Sphere spheres[Objects];
@@ -217,24 +212,24 @@ void sky() {
 			spheres[i].emissionStrength = emisionStrength[i];
 			spheres[i].specular = specular[i];
 		}
-
 		Ray r;
+		float Seed = fract(noise(SCREEN_UV));
 		for(int b = 0; b < RaysPerPixel; b++) {
 			//State = clamp(fract(State), 0, TIME/ 30.0);
-			float Seed = fract(noise(EYEDIR.xy) * 1.0 - TIME * 0.00432122);
+			//Seed *= float(b * b);
 			vec3 RayOrigin = POSITION;
 			vec3 target = EYEDIR;
-
+			
 			r.origin = RayOrigin;
 			r.dir = target;
-			int bounces = 0;
-			COLOR += (Trace(r, Seed, spheres));
+			COLOR += (Trace(r, Seed, spheres, SKY_COORDS));
+			Seed = fract(noise(EYEDIR.xy * float(b)) * 1.0 -  0.00432122);
 		}
-
 		float divisor = 1.0 / float(RaysPerPixel);
 		COLOR = COLOR * divisor;
 	}
 	else {
+		//COLOR = QUARTER_RES_COLOR.rgb;
 		COLOR = HALF_RES_COLOR.rgb;
 	}
 }
