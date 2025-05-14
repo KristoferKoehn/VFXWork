@@ -59,3 +59,9 @@ func emit_zaps():
 	
 	impact_particles.emitting = true
 	pass
+
+func _unhandled_input(event):
+	print(event.to_string())
+
+func _input(event):
+	print(event.to_string())

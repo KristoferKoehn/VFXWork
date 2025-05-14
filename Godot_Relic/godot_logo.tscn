@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5igeq6xjeo7l"]
+
+[ext_resource type="Texture2D" uid="uid://b6sdq8wqprfuw" path="res://Godot_Relic/image.png" id="1_54vx3"]
+[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Assets/PNG (Transparent)/circle_05.png" id="2_guo54"]
+[ext_resource type="Script" uid="uid://d2mmyd0am4yv0" path="res://Godot_Relic/godot_pulse.gd" id="3_a234x"]
+[ext_resource type="Texture2D" uid="uid://ig7hd2qxgaad" path="res://Assets/PNG (Transparent)/smoke_07.png" id="4_e60bo"]
+
+[sub_resource type="Curve" id="Curve_x3stk"]
+_data = [Vector2(0.0362319, 0.011236), 0.0, 0.0, 0, 0, Vector2(0.492754, 1), 0.0, 0.0, 0, 0, Vector2(0.971014, 0.011236), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0ca7y"]
+curve = SubResource("Curve_x3stk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hw4o4"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, -10, 0)
+scale_min = 1.5
+scale_max = 2.0
+color = Color(0.676355, 0.812579, 0.797909, 1)
+alpha_curve = SubResource("CurveTexture_0ca7y")
+turbulence_enabled = true
+
+[node name="Godot_Logo" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+position = Vector2(962, 534)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(962, 534)
+texture = ExtResource("1_54vx3")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1919.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(792, 508)
+color = Color(0.301961, 0.839216, 0.129412, 1)
+energy = 3.81191
+texture = ExtResource("2_guo54")
+texture_scale = 0.3
+script = ExtResource("3_a234x")
+min_energy = 3.0
+max_energy = 6.0
+pulse_speed = 0.5
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(1067, 516)
+color = Color(0.301961, 0.839216, 0.129412, 1)
+energy = 3.81191
+texture = ExtResource("2_guo54")
+texture_scale = 0.3
+script = ExtResource("3_a234x")
+min_energy = 3.0
+max_energy = 6.0
+pulse_speed = 0.5
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(1165, 641)
+amount = 2
+amount_ratio = 0.8868
+texture = ExtResource("4_e60bo")
+lifetime = 12.0
+process_material = SubResource("ParticleProcessMaterial_hw4o4")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(813, 699)
+amount = 2
+amount_ratio = 0.8868
+texture = ExtResource("4_e60bo")
+lifetime = 12.0
+process_material = SubResource("ParticleProcessMaterial_hw4o4")
