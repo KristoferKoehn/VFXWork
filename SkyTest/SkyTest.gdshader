@@ -147,9 +147,9 @@ vec3 GetEnvironmentLight(Ray ray, vec2 sky_c) {
 		uv.x = 0.5 + atan(n.x, n.z) / (2.0 * PI);
 		uv.y = 0.5 + asin(n.y) / PI;
 	if (hi.hit) {
-		//return vec3(0.2);
-		//return ray.dir;
-		return texture(testImage,uv + imageoffset).rgb;
+		//return vec3(0);
+		return ray.dir;
+		//return texture(testImage,uv + imageoffset).rgb;
 	}
 	return vec3(0);
 }

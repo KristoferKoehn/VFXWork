@@ -31,11 +31,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if time_acc > 10000.0:
+	if time_acc > 1000.0:
 		time_acc = 0.10
 	time_acc += delta
-	timelist.remove_at(0)
-	timelist.append(time_acc)
+	timelist.remove_at(timelist.size() -1)
+	timelist.insert(0, time_acc)
 	$WorldEnvironment.environment.sky.sky_material.set("shader_parameter/seeds", timelist)
 	
 	if exposing:
@@ -61,3 +61,4 @@ func _process(delta):
 
 func _picture():
 	exposing = true
+	viewport.get_camera_3d().transform = EditorInterface.get_editor_viewport_3d(0).get_camera_3d().transform
