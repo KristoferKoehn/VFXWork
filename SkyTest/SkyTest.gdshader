@@ -140,16 +140,18 @@ float flerp(float st, float end, float t) {
 
 vec3 GetEnvironmentLight(Ray ray, vec2 sky_c) {
 	Ray r = Ray(ray.origin + ray.dir * 800.0, -ray.dir);
-	Sphere s = Sphere(POSITION, 400.0, vec3(0),0.0, vec3(0), 0.0, 0.0, 0.0);
+	Sphere s = Sphere(vec3(0), 400.0, vec3(0),0.0, vec3(0), 0.0, 0.0, 0.0);
 	HitInfo hi = SphereCheckCollision(r,s);
+	
 		vec3 n = -hi.normal;
 		vec2 uv;
 		uv.x = 0.5 + atan(n.x, n.z) / (2.0 * PI);
 		uv.y = 0.5 + asin(n.y) / PI;
+		
 	if (hi.hit) {
-		//return vec3(0);
-		return ray.dir;
-		//return texture(testImage,uv + imageoffset).rgb;
+		//return vec3(uv,0);
+		//return ray.dir;
+		return texture(testImage,uv + imageoffset + vec2(TIME * 0.0001, 0)).rgb;
 	}
 	return vec3(0);
 }
@@ -219,7 +221,7 @@ void sky() {
 
 			r.origin = RayOrigin;
 			r.dir = target;
-			COLOR += (Trace(r, seeds[b % 10] + seeds[b / 10], spheres, SKY_COORDS)) * 1.0/float(RaysPerPixel);
+			COLOR += (Trace(r, seeds[b % 10], spheres, SKY_COORDS)) * 1.0/float(RaysPerPixel);
 			//COLOR += (Trace(r, TIME + float(b) * 1.2234, spheres, SKY_COORDS)) * 1.0/float(RaysPerPixel);
 		}
 

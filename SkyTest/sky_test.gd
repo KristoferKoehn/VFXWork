@@ -12,20 +12,14 @@ var frames_exposed : int = 0
 var viewport : Viewport = EditorInterface.get_editor_viewport_3d(0)
 var images : Array[Image] = []
 
-var timelist : PackedFloat32Array =[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-									1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-									1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-									1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+var timelist : PackedFloat32Array =[]
 var time_acc := 0.1
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	timelist.append_array(timelist) #80
-	timelist.append_array(timelist) #160
-	timelist.append_array(timelist) #320
-	timelist.append_array(timelist) #640
-	timelist.append_array(timelist) #1280
+	for r in 1280:
+		timelist.append(0.001 + randf())
 	pass # Replace with function body.
 
 
