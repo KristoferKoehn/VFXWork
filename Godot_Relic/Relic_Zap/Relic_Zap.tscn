@@ -1,0 +1,213 @@
+[gd_scene load_steps=27 format=3 uid="uid://dweptud3ie27j"]
+
+[ext_resource type="Script" uid="uid://bf88ht5bvm0y2" path="res://Godot_Relic/Relic_Zap/Relic_Zap.gd" id="1_gb358"]
+[ext_resource type="Shader" uid="uid://c3pbiuanrgv52" path="res://Godot_Relic/Relic_Zap/Relic_Zap.gdshader" id="2_rbkph"]
+[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Assets/PNG (Transparent)/spark_07.png" id="3_gb358"]
+[ext_resource type="Texture2D" uid="uid://cotyq1s4w4sx0" path="res://Assets/PNG (Transparent)/spark_04.png" id="3_vsbsf"]
+[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Assets/PNG (Transparent)/spark_02.png" id="4_q2otv"]
+[ext_resource type="Texture2D" uid="uid://dej4febdpye7k" path="res://Assets/PNG (Transparent)/magic_03.png" id="5_iwgbq"]
+[ext_resource type="Shader" uid="uid://c3hdxe7kkpuiu" path="res://eel_lightning/particle_zap.gdshader" id="6_gathl"]
+[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Assets/PNG (Transparent)/spark_03.png" id="7_1o0jk"]
+[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Assets/PNG (Transparent)/circle_05.png" id="8_vfihc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fd35s"]
+shader = ExtResource("2_rbkph")
+shader_parameter/lightning = ExtResource("3_gb358")
+shader_parameter/color = Color(1.51, 4.195, 0.645, 1)
+shader_parameter/alpha = 0.0
+
+[sub_resource type="Curve" id="Curve_fj12x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0466831, 0), 0.0, 0.0, 0, 0, Vector2(0.0565111, 1), 0.0, 0.0, 0, 0, Vector2(0.0859951, 0), 0.0, 0.0, 0, 0, Vector2(0.100737, 1), 0.0, 0.0, 0, 0, Vector2(0.130221, 0), 0.0, 0.0, 0, 0, Vector2(0.144963, 1), 0.0, 0.0, 0, 0, Vector2(0.179361, 0), 0.0, 0.0, 0, 0, Vector2(0.22113, 0), 0.0, 0.0, 0, 0, Vector2(0.237443, 0.910112), 0.0, 0.0, 0, 0, Vector2(0.272727, 0), 0.0, 0.0, 0, 0, Vector2(0.292237, 0.865169), 0.0, 0.0, 0, 0, Vector2(0.324324, 0), 0.0, 0.0, 0, 0, Vector2(0.347032, 0.820225), 0.0, 0.0, 0, 0, Vector2(0.36855, 0), 0.0, 0.0, 0, 0, Vector2(0.410319, 0), 0.0, 0.0, 0, 0, Vector2(0.415525, 0.696629), 0.0, 0.0, 0, 0, Vector2(0.447174, 0), 0.0, 0.0, 0, 0, Vector2(0.456621, 0.617978), 0.0, 0.0, 0, 0, Vector2(0.48403, 0), 0.0, 0.0, 0, 0, Vector2(0.53317, 0), 0.0, 0.0, 0, 0, Vector2(0.552511, 0.52809), 0.0, 0.0, 0, 0, Vector2(0.572482, 0), 0.0, 0.0, 0, 0, Vector2(0.614251, 0), 0.0, 0.0, 0, 0, Vector2(0.639269, 0.52809), 0.0, 0.0, 0, 0, Vector2(0.670762, 0), 0.0, 0.0, 0, 0, Vector2(0.739558, 0), 0.0, 0.0, 0, 0]
+point_count = 27
+
+[sub_resource type="CurveTexture" id="CurveTexture_lxq6f"]
+curve = SubResource("Curve_fj12x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fd35s"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 76.74
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 40.0
+radial_accel_max = 60.0
+scale_min = 0.1
+scale_max = 0.15
+color = Color(1.51, 4.195, 0.645, 1)
+alpha_curve = SubResource("CurveTexture_lxq6f")
+
+[sub_resource type="Curve" id="Curve_ytegn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0466831, 0), 0.0, 0.0, 0, 0, Vector2(0.0565111, 1), 0.0, 0.0, 0, 0, Vector2(0.0859951, 0), 0.0, 0.0, 0, 0, Vector2(0.100737, 1), 0.0, 0.0, 0, 0, Vector2(0.130221, 0), 0.0, 0.0, 0, 0, Vector2(0.144963, 1), 0.0, 0.0, 0, 0, Vector2(0.179361, 0), 0.0, 0.0, 0, 0, Vector2(0.22113, 0), 0.0, 0.0, 0, 0, Vector2(0.251142, 0.786517), 0.0, 0.0, 0, 0, Vector2(0.272727, 0), 0.0, 0.0, 0, 0, Vector2(0.292237, 0.730337), 0.0, 0.0, 0, 0, Vector2(0.324324, 0), 0.0, 0.0, 0, 0, Vector2(0.328767, 0.775281), 0.0, 0.0, 0, 0, Vector2(0.36855, 0), 0.0, 0.0, 0, 0, Vector2(0.410319, 0), 0.0, 0.0, 0, 0, Vector2(0.424658, 0.651685), 0.0, 0.0, 0, 0, Vector2(0.447174, 0), 0.0, 0.0, 0, 0, Vector2(0.47032, 0.595506), 0.0, 0.0, 0, 0, Vector2(0.48403, 0), 0.0, 0.0, 0, 0, Vector2(0.53317, 0), 0.0, 0.0, 0, 0, Vector2(0.547945, 0.52809), 0.0, 0.0, 0, 0, Vector2(0.572482, 0), 0.0, 0.0, 0, 0, Vector2(0.614251, 0), 0.0, 0.0, 0, 0, Vector2(0.639269, 0.494382), 0.0, 0.0, 0, 0, Vector2(0.670762, 0), 0.0, 0.0, 0, 0, Vector2(0.739558, 0), 0.0, 0.0, 0, 0]
+point_count = 27
+
+[sub_resource type="CurveTexture" id="CurveTexture_0k1j6"]
+curve = SubResource("Curve_ytegn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_68sq4"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 70.0
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_min = -10.0
+angular_velocity_max = 9.99998
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 50.0
+radial_accel_max = 70.0
+scale_min = 0.15
+scale_max = 0.22
+color = Color(1.51, 4.195, 0.645, 1)
+alpha_curve = SubResource("CurveTexture_0k1j6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_adxr2"]
+shader = ExtResource("6_gathl")
+
+[sub_resource type="Curve" id="Curve_lxq6f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0514706, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.110294, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.227941, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_0s4lu"]
+curve = SubResource("Curve_lxq6f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_afiy8"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 100.0
+angle_min = -180.0
+angle_max = 180.0
+radial_velocity_min = 40.0
+radial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.25
+color = Color(1.51, 4.195, 0.645, 1)
+alpha_curve = SubResource("CurveTexture_0s4lu")
+
+[sub_resource type="Curve" id="Curve_f3so6"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0514706, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.110294, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 0.808989), 0.0, 0.0, 0, 0, Vector2(0.227941, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_xoy82"]
+curve = SubResource("Curve_f3so6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nl2lh"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 200.0
+angle_min = -180.0
+angle_max = 180.0
+radial_velocity_min = 40.0
+radial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.25
+color = Color(1.51, 4.195, 0.645, 1)
+alpha_curve = SubResource("CurveTexture_xoy82")
+
+[sub_resource type="Curve" id="Curve_adxr2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.826484, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fj12x"]
+curve = SubResource("Curve_adxr2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fj12x"]
+particle_flag_disable_z = true
+spread = 30.0
+initial_velocity_min = 400.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+color = Color(1.51, 4.195, 0.645, 1)
+alpha_curve = SubResource("CurveTexture_fj12x")
+
+[node name="ZapAttack" type="Node2D" node_paths=PackedStringArray("line", "small_zaps", "big_zaps", "target", "ParticleNode", "line_particles1", "line_particles2", "impact_particles")]
+script = ExtResource("1_gb358")
+line = NodePath("lightning")
+small_zaps = NodePath("creep_lightning/small_zappies")
+big_zaps = NodePath("creep_lightning/big_zappies")
+target = NodePath("Sprite2D")
+ParticleNode = NodePath("creep_lightning")
+line_particles1 = NodePath("line_particles1")
+line_particles2 = NodePath("line_particles2")
+impact_particles = NodePath("impact_particles")
+target_pos = Vector2(400, 300)
+
+[node name="lightning" type="Line2D" parent="."]
+top_level = true
+z_index = -1
+material = SubResource("ShaderMaterial_fd35s")
+position = Vector2(595, 905)
+rotation = 4.40059
+points = PackedVector2Array(-21.5414, 24.3162, 34.7102, -26.8288, 77.4902, 20.8771, 127.347, -8.83846, 190.693, -3.35506, 229.463, -0.805799, 284.152, 1.37106, 335.042, -6.02308, 373.109, 24.9702, 438.329, -3.53831, 498.238, 30.1813, 528.807, -36.0838, 619.847, 13.3211, 625.213, -2.40708)
+width = 84.0
+texture_mode = 2
+
+[node name="creep_lightning" type="Node2D" parent="."]
+top_level = true
+position = Vector2(400, 300)
+
+[node name="small_zappies" type="GPUParticles2D" parent="creep_lightning"]
+emitting = false
+amount = 10
+texture = ExtResource("3_vsbsf")
+lifetime = 0.8
+one_shot = true
+fixed_fps = 60
+visibility_rect = Rect2(-639.146, -625.434, 1260.83, 1264.49)
+process_material = SubResource("ParticleProcessMaterial_fd35s")
+
+[node name="big_zappies" type="GPUParticles2D" parent="creep_lightning"]
+emitting = false
+texture = ExtResource("4_q2otv")
+lifetime = 0.8
+one_shot = true
+fixed_fps = 60
+visibility_rect = Rect2(-639.146, -625.434, 1260.83, 1264.49)
+process_material = SubResource("ParticleProcessMaterial_68sq4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(400, 300)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_iwgbq")
+
+[node name="line_particles1" type="GPUParticles2D" parent="."]
+top_level = true
+material = SubResource("ShaderMaterial_adxr2")
+position = Vector2(121.166, 375.924)
+emitting = false
+amount = 10
+texture = ExtResource("7_1o0jk")
+lifetime = 0.7
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_afiy8")
+
+[node name="line_particles2" type="GPUParticles2D" parent="."]
+top_level = true
+material = SubResource("ShaderMaterial_adxr2")
+position = Vector2(11.7835, 36.5591)
+emitting = false
+amount = 6
+texture = ExtResource("4_q2otv")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.77
+process_material = SubResource("ParticleProcessMaterial_nl2lh")
+
+[node name="impact_particles" type="GPUParticles2D" parent="."]
+modulate = Color(4, 4, 2, 1)
+top_level = true
+position = Vector2(400, 300)
+rotation = 1.259
+emitting = false
+amount = 5
+texture = ExtResource("8_vfihc")
+lifetime = 0.4
+one_shot = true
+preprocess = 0.1
+explosiveness = 0.45
+randomness = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fj12x")

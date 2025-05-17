@@ -151,7 +151,7 @@ vec3 GetEnvironmentLight(Ray ray, vec2 sky_c) {
 	if (hi.hit) {
 		//return vec3(uv,0);
 		//return ray.dir;
-		return texture(testImage,uv + imageoffset + vec2(TIME * 0.0001, 0)).rgb;
+		return texture(testImage,uv + imageoffset).rgb;
 	}
 	return vec3(0);
 }
