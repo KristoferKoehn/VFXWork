@@ -48,8 +48,8 @@ func fire(target_position: Vector2) -> void:
 	
 	var target_dir = ( target.global_position - global_position)
 	
-	line_particles1.global_position = target_dir.normalized() * randf_range(1, target_dir.length())
-	line_particles2.global_position = target_dir.normalized() * randf_range(1, target_dir.length())
+	line_particles1.global_position = global_position + target_dir.normalized() * randf_range(1, target_dir.length())
+	line_particles2.global_position = global_position + target_dir.normalized() * randf_range(1, target_dir.length())
 	
 	impact_particles.global_position = target_position
 	impact_particles.look_at(global_position)

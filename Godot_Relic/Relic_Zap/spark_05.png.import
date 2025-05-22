@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjy2gs8gr670l"
-path="res://.godot/imported/spark_03.png-67de09da75ca0c412461e1e1a93087ce.ctex"
+uid="uid://bpmc8wltib776"
+path="res://.godot/imported/spark_05.png-021871e5d4e28dfbacbae947af7ab478.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/PNG (Transparent)/spark_03.png"
-dest_files=["res://.godot/imported/spark_03.png-67de09da75ca0c412461e1e1a93087ce.ctex"]
+source_file="res://Godot_Relic/Relic_Zap/spark_05.png"
+dest_files=["res://.godot/imported/spark_05.png-021871e5d4e28dfbacbae947af7ab478.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
