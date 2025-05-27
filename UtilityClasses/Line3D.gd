@@ -1,6 +1,6 @@
 @tool
 extends MeshInstance3D
-class_name Line3D
+
 @export var line_width : float = 1.0
 @export var points : Array[Vector3]
 var uv_y : Array[float]

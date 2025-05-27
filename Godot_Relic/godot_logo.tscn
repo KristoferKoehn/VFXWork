@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://c5igeq6xjeo7l"]
 
 [ext_resource type="Texture2D" uid="uid://b6sdq8wqprfuw" path="res://Godot_Relic/image.png" id="1_54vx3"]
-[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Godot_Relic/circle_05.png" id="2_guo54"]
+[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Assets/PNG (Transparent)/circle_05.png" id="2_guo54"]
 [ext_resource type="Script" uid="uid://d2mmyd0am4yv0" path="res://Godot_Relic/godot_pulse.gd" id="3_a234x"]
-[ext_resource type="Texture2D" uid="uid://ig7hd2qxgaad" path="res://Godot_Relic/smoke_07.png" id="4_e60bo"]
-[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Godot_Relic/Relic_Zap/spark_03.png" id="5_h5hp5"]
-[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Godot_Relic/Relic_Zap/spark_02.png" id="5_hxjfw"]
+[ext_resource type="Texture2D" uid="uid://ig7hd2qxgaad" path="res://Assets/PNG (Transparent)/smoke_07.png" id="4_e60bo"]
+[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Assets/PNG (Transparent)/spark_03.png" id="5_h5hp5"]
+[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Assets/PNG (Transparent)/spark_02.png" id="5_hxjfw"]
 [ext_resource type="PackedScene" uid="uid://dweptud3ie27j" path="res://Godot_Relic/Relic_Zap/Relic_Zap.tscn" id="7_djlvh"]
 
 [sub_resource type="Curve" id="Curve_x3stk"]

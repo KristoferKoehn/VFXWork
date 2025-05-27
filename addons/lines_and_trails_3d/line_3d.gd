@@ -1,8 +1,6 @@
 @tool
-
 class_name Line3D
 extends MeshInstance3D
-
 
 enum TextureTileMode { RATIO, DISTANCE }
 enum BillboardMode { NONE, VIEW, Z }
@@ -241,7 +239,7 @@ func rebuild() -> void:
 
 		if i > 0:
 			dist += points[i - 1].distance_to(p)
-		@warning_ignore("inference_on_variant")
+
 		var ratio := (dist / length) if (length > 0) else 0
 
 		var u: float

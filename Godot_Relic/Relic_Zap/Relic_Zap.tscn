@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bf88ht5bvm0y2" path="res://Godot_Relic/Relic_Zap/Relic_Zap.gd" id="1_gb358"]
 [ext_resource type="Shader" uid="uid://c3pbiuanrgv52" path="res://Godot_Relic/Relic_Zap/Relic_Zap.gdshader" id="2_rbkph"]
-[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Godot_Relic/Relic_Zap/spark_07.png" id="3_gb358"]
-[ext_resource type="Texture2D" uid="uid://cotyq1s4w4sx0" path="res://Godot_Relic/Relic_Zap/spark_04.png" id="3_vsbsf"]
-[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Godot_Relic/Relic_Zap/spark_02.png" id="4_q2otv"]
+[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Assets/PNG (Transparent)/spark_07.png" id="3_gb358"]
+[ext_resource type="Texture2D" uid="uid://cotyq1s4w4sx0" path="res://Assets/PNG (Transparent)/spark_04.png" id="3_vsbsf"]
+[ext_resource type="Texture2D" uid="uid://t0x1wufa1n77" path="res://Assets/PNG (Transparent)/spark_02.png" id="4_q2otv"]
 [ext_resource type="Texture2D" uid="uid://dej4febdpye7k" path="res://Assets/PNG (Transparent)/magic_03.png" id="5_iwgbq"]
 [ext_resource type="Shader" uid="uid://c3hdxe7kkpuiu" path="res://eel_lightning/particle_zap.gdshader" id="6_gathl"]
-[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Godot_Relic/Relic_Zap/spark_03.png" id="7_1o0jk"]
-[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Godot_Relic/circle_05.png" id="8_vfihc"]
+[ext_resource type="Texture2D" uid="uid://cjy2gs8gr670l" path="res://Assets/PNG (Transparent)/spark_03.png" id="7_1o0jk"]
+[ext_resource type="Texture2D" uid="uid://d4ijaidx14e0c" path="res://Assets/PNG (Transparent)/circle_05.png" id="8_vfihc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fd35s"]
 shader = ExtResource("2_rbkph")

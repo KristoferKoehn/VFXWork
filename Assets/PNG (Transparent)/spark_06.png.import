@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t0x1wufa1n77"
-path.s3tc="res://.godot/imported/spark_02.png-753ea271318cefe770a45a37e1903cce.s3tc.ctex"
+uid="uid://csmrg53qv2fy8"
+path="res://.godot/imported/spark_06.png-9e16c07c4c77a3fc92b6f06d3f6f4ee6.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Godot_Relic/Relic_Zap/spark_02.png"
-dest_files=["res://.godot/imported/spark_02.png-753ea271318cefe770a45a37e1903cce.s3tc.ctex"]
+source_file="res://Assets/PNG (Transparent)/spark_06.png"
+dest_files=["res://.godot/imported/spark_06.png-9e16c07c4c77a3fc92b6f06d3f6f4ee6.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
