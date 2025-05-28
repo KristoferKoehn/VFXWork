@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
 
-
 func _enter_tree() -> void:
 
 	add_custom_type("Line3D", "MeshInstance3D", preload("line_3d.gd"), preload("line_3d.svg"))

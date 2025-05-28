@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://crnbsuu3yqq72"]
+[gd_scene load_steps=13 format=3 uid="uid://crnbsuu3yqq72"]
 
-[ext_resource type="Shader" uid="uid://b31gyk4uxcmum" path="res://meshtest/linetest2.gdshader" id="1_vr7ga"]
 [ext_resource type="Script" uid="uid://bqflf4vw8mem1" path="res://addons/lines_and_trails_3d/trail_3d.gd" id="1_wf63x"]
-[ext_resource type="Texture2D" uid="uid://bw2q7h774bvbh" path="res://Assets/PNG (Transparent)/spark_07.png" id="2_tb7kj"]
+[ext_resource type="Script" uid="uid://c8rainoecpyie" path="res://addons/lines_and_trails_3d/line_3d.gd" id="2_vr7ga"]
+[ext_resource type="LightmapGIData" uid="uid://olfnysy7d28" path="res://meshtest/MeshTest.lmbake" id="3_tb7kj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wf63x"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -17,13 +17,51 @@ sky = SubResource("Sky_vr7ga")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_tb7kj"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tb7kj"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tb7kj"]
-render_priority = 0
-shader = ExtResource("1_vr7ga")
-shader_parameter/tex = ExtResource("2_tb7kj")
-shader_parameter/col = Color(2, 2, 1, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_tb7kj"]
+lightmap_size_hint = Vector2i(14, 21)
+material = SubResource("StandardMaterial3D_tb7kj")
+add_uv2 = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w0g7"]
+
+[sub_resource type="Shader" id="Shader_wf63x"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D screen : hint_screen_texture;
+uniform int kernel_size = 6;
+
+const vec2 size = vec2(1244.0, 535.0);
+
+void vertex(){
+	POSITION = vec4(VERTEX.xy, 1.0, 1.0);
+}
+
+void fragment() {
+	vec3 sum = vec3(0);
+	for (int i = 0; i < kernel_size; i++) {
+		for (int j = 0; j < kernel_size; j++) {
+			vec2 pos = vec2(clamp(UV.x + (1.0/size.x) * float(i - kernel_size / 2), 0.005, 0.995), clamp(-UV.y + (1.0/size.y) * float(j - kernel_size / 2), -.995, -0.005));
+			sum += texture(screen, pos).rgb;
+		}
+	}
+	sum *= (1.0 / pow(float((kernel_size)), 2.0));
+	//ALBEDO = texture(screen, vec2(UV.x, -UV.y)).rgb;
+	ALBEDO = sum;
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vr7ga"]
+render_priority = -1
+shader = SubResource("Shader_wf63x")
+shader_parameter/kernel_size = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_tb7kj"]
+material = SubResource("ShaderMaterial_vr7ga")
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="MeshTest" type="Node3D"]
 
@@ -33,21 +71,42 @@ environment = SubResource("Environment_tb7kj")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 5.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75963, 0.309805, -0.0260692)
+transform = Transform3D(0.430873, -0.902412, 0, 0.902412, 0.430873, 0, 0, 0, 1, -2.71411, 0.309805, -0.146657)
 mesh = SubResource("BoxMesh_tb7kj")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17041, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.23329, 0.561411, -0.633447)
 height = 2.34082
+material = SubResource("StandardMaterial3D_3w0g7")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CSGCylinder3D"]
+process_priority = 9999
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_tb7kj")
 script = ExtResource("1_wf63x")
 time_limit = 2.0
 pin_texture = true
 width = 1.0
 billboard_mode = 0
 texture_tile_mode = 1
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.474041, 0.00762963, 0.0930929)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_tb7kj")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.991151, 0, -0.132741, 0, 1, 0, 0.132741, 0, 0.991151, 0, 0, 0)
+visible = false
+script = ExtResource("2_vr7ga")
+width = 0.3
+points = PackedVector3Array(0, 0, 0, 0, 10, 0)
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 3
+supersampling = true
+directional = true
+light_data = ExtResource("3_tb7kj")
